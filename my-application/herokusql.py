@@ -12,21 +12,21 @@ conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 #Cursor
 cur = conn.cursor()
 #Create DB
-cur.execute("CREATE SCHEMA IF NOT EXISTS `chats0` DEFAULT CHARACTER SET utf8 ; USE `chats` ;")
+cur.execute("CREATE SCHEMA IF NOT EXISTS 'chats' DEFAULT CHARACTER SET utf8 ; USE 'chats' ;")
 #Create Tables
-query = """CREATE TABLE IF NOT EXISTS `chats`.`chats` (
-  `idchats` INT NOT NULL,
-  `source` VARCHAR(45) NULL,
-  `text` VARCHAR(45) NULL,
-  `date` VARCHAR(45) NULL,
-  `message_id` VARCHAR(45) NULL,
-  `chat_id` VARCHAR(45) NULL,
-  PRIMARY KEY (`idchats`))
+query = """CREATE TABLE IF NOT EXISTS 'chats'.'chats' (
+  'idchats' INT NOT NULL,
+  'source' VARCHAR(45) NULL,
+  'text' VARCHAR(45) NULL,
+  'date' VARCHAR(45) NULL,
+  'message_id' VARCHAR(45) NULL,
+  'chat_id' VARCHAR(45) NULL,
+  PRIMARY KEY ('idchats'))
 ENGINE = InnoDB;"""
 cur.execute(query)
 #Populate table
 chats = pd.read_csv('input/clean_chats.csv')
-query = "INSERT INTO `chats` VALUES"
+query = "INSERT INTO 'chats' VALUES"
 for _,row in chats.iterrows():
     values = tuple(row.values)
     cur.execute(query,values)
