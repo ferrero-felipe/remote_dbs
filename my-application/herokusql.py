@@ -11,15 +11,8 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 #Cursor
 cur = conn.cursor()
-#Create user and database
-query = """CREATE ROLE ferrero;
-CREATE DATABASE chats OWNER ferrero;
-GRANT CONNECT ON DATABASE chats TO ferrero;
-GRANT ALL ON DATABASE chats TO ferrero;"""
-cur.execute(query)
 #Create Tables
-cur.execute('DROP TABLE IF EXISTS chats.chats')
-query = """CREATE TABLE IF NOT EXISTS chats.chats (
+query = """CREATE TABLE chats (
   'idchats' INT NOT NULL,
   'source' VARCHAR(45) NULL,
   'text' VARCHAR(45) NULL,
