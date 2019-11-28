@@ -18,7 +18,7 @@ query = """CREATE TABLE chats (
   text VARCHAR(45) NULL,
   date VARCHAR(45) NULL,
   message_id VARCHAR(45) NULL,
-  chat_id VARCHAR(45) NULL"""
+  chat_id VARCHAR(45) NULL;"""
 cur.execute(query)
 #Populate table
 chats = pd.read_csv('input/clean_chats.csv')
