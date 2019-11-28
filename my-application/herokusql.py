@@ -12,7 +12,7 @@ conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 #Cursor
 cur = conn.cursor()
 #Create DB
-cur.execute("CREATE DATABASE `chats`;")
+cur.execute("CREATE SCHEMA IF NOT EXISTS `chats0` DEFAULT CHARACTER SET utf8 ; USE `chats` ;")
 #Create Tables
 query = """CREATE TABLE IF NOT EXISTS `chats`.`chats` (
   `idchats` INT NOT NULL,
