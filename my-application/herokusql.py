@@ -24,6 +24,6 @@ cur.execute(query)
 chats = pd.read_csv('my-application/input/clean_chats.csv')
 query = "INSERT INTO chats VALUES(%s)"
 for _,row in chats.iterrows():
-    values = tuple(row.values)
+    values = str(tuple(row.values))
     cur.execute(query,values)
 print('Done!')
