@@ -12,7 +12,7 @@ cur = conn.cursor()
 #Create DB
 cur.execute("CREATE DATABASE chats;")
 #Create Tables
-query = "CREATE TABLE IF NOT EXISTS `chats`.`chats` (
+query = """CREATE TABLE IF NOT EXISTS `chats`.`chats` (
   `idchats` INT NOT NULL,
   `source` VARCHAR(45) NULL,
   `text` VARCHAR(45) NULL,
@@ -20,7 +20,7 @@ query = "CREATE TABLE IF NOT EXISTS `chats`.`chats` (
   `message_id` VARCHAR(45) NULL,
   `chat_id` VARCHAR(45) NULL,
   PRIMARY KEY (`idchats`))
-ENGINE = InnoDB;"
+ENGINE = InnoDB;"""
 cur.execute(query)
 #Populate table
 chats = pd.read_csv('input/clean_chats.csv')
