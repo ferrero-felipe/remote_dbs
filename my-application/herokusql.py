@@ -7,10 +7,11 @@ import pandas as pd
 DATABASE_URL = os.environ['DATABASE_URL']
 #Connect
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+conn.connection.connection.set_isolation_level(0)
 #Cursor
 cur = conn.cursor()
 #Create DB
-cur.execute("CREATE DATABASE chats;")
+cur.execute("CREATE DATABASE `chats`;")
 #Create Tables
 query = """CREATE TABLE IF NOT EXISTS `chats`.`chats` (
   `idchats` INT NOT NULL,
