@@ -13,18 +13,16 @@ conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 cur = conn.cursor()
 #Create Tables
 query = """CREATE TABLE chats (
-  idchats INT PRIMARY,
+  idchats INT PRIMARY KEY,
   source VARCHAR(45) NULL,
-  'text' VARCHAR(45) NULL,
-  'date' VARCHAR(45) NULL,
-  'message_id' VARCHAR(45) NULL,
-  'chat_id' VARCHAR(45) NULL,
-  PRIMARY KEY ('idchats'))
-ENGINE = InnoDB;"""
+  text VARCHAR(45) NULL,
+  date VARCHAR(45) NULL,
+  message_id VARCHAR(45) NULL,
+  chat_id VARCHAR(45) NULL"""
 cur.execute(query)
 #Populate table
 chats = pd.read_csv('input/clean_chats.csv')
-query = "INSERT INTO 'chats' VALUES"
+query = "INSERT INTO chats VALUES"
 for _,row in chats.iterrows():
     values = tuple(row.values)
     cur.execute(query,values)
