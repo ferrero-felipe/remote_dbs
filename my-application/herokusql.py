@@ -22,7 +22,7 @@ query = """CREATE TABLE IF NOT EXISTS chats (
 cur.execute(query)
 #Populate table
 chats = pd.read_csv('my-application/input/clean_chats.csv')
-query = "INSERT INTO chats VALUES"
+query = "INSERT INTO chats VALUES(%s)"
 for _,row in chats.iterrows():
     values = tuple(row.values)
     cur.execute(query,values)
