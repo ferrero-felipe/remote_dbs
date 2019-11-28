@@ -24,6 +24,9 @@ cur.execute(query)
 chats = pd.read_csv('my-application/input/clean_chats.csv')
 query = "INSERT INTO chats VALUES "
 for _,row in chats.iterrows():
+  try:
     values = str(tuple(row.values))
     cur.execute(query+values)
+  except:
+    print("At least I tried")
 print('Done!')
