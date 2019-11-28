@@ -21,7 +21,7 @@ query = """CREATE TABLE chats (
   chat_id VARCHAR(45) NULL);"""
 cur.execute(query)
 #Populate table
-chats = pd.read_csv('input/clean_chats.csv')
+chats = pd.read_csv('my-application/input/clean_chats.csv')
 query = "INSERT INTO chats VALUES"
 for _,row in chats.iterrows():
     values = tuple(row.values)
