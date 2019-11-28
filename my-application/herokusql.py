@@ -13,8 +13,8 @@ conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 cur = conn.cursor()
 #Create Tables
 query = """CREATE TABLE chats (
-  'idchats' INT NOT NULL,
-  'source' VARCHAR(45) NULL,
+  idchats INT PRIMARY,
+  source VARCHAR(45) NULL,
   'text' VARCHAR(45) NULL,
   'date' VARCHAR(45) NULL,
   'message_id' VARCHAR(45) NULL,
