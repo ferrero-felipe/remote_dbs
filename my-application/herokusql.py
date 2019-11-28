@@ -7,7 +7,7 @@ import pandas as pd
 DATABASE_URL = os.environ['DATABASE_URL']
 #Connect
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-conn.connection.connection.set_isolation_level(0)
+conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 #Cursor
 cur = conn.cursor()
 #Create DB
