@@ -12,10 +12,11 @@ conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 #Cursor
 cur = conn.cursor()
 #Create DB
-cursor.execute('DROP DATABASE IF EXISTS chats')
-cursor.execute('CREATE DATABASE chats')
+cur.execute('DROP DATABASE IF EXISTS chats')
+cur.execute('CREATE DATABASE chats')
 #Create Tables
-query = """CREATE TABLE IF NOT EXISTS 'chats'.'chats' (
+cur.execute('DROP TABLE IF EXISTS chats.chats')
+query = """CREATE TABLE IF NOT EXISTS chats.chats (
   'idchats' INT NOT NULL,
   'source' VARCHAR(45) NULL,
   'text' VARCHAR(45) NULL,
