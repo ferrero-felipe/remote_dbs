@@ -49,7 +49,7 @@ with open('my-application/input/chats.json') as f:
 users = list(set([(chats_json[i]['idUser'],chats_json[i]['userName']) for i in range(len(chats_json))]))
 chats = list(set([(chats_json[i]['idChat']) for i in range(len(chats_json))]))
 for user in users:
-  q=query.format('users(idUser, userName)',str(user),'users.idUser')
+  q=query.format('users (idUser, userName)',str(user),'users.idUser')
   print(q)
   cur.execute(q)
   #Get Response
