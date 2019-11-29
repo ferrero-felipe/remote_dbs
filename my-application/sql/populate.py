@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS chats (
   PRIMARY KEY (idChat));
 CREATE TABLE IF NOT EXISTS messages (
   idMessage INT NOT NULL,
-  text VARCHAR(80) NULL,
+  text VARCHAR(120) NULL,
   datetime VARCHAR(45) NULL,
   users_idUser INT NOT NULL,
   chats_idChat INT NOT NULL,
