@@ -17,6 +17,6 @@ def connectCollection(database, collection):
 
 db, coll = connectCollection('datamad1019','chats')
 
-query = {'chat_id':62}
+query = {'chat_id':0}
 test_query = coll.find(query)
 print(list(test_query))
