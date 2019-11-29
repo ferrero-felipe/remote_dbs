@@ -59,7 +59,7 @@ for user in users:
   except:
     print("At least I tried")
 for chat in chats:
-  q = query.format('chats(idChat)',"({})".format(chat[0]),'chats.idChat')
+  q = query.format('chats(idChat)',"({})".format(chat),'chats.idChat')
   print(q)
   try:
     cur.execute(q)
@@ -69,7 +69,7 @@ for chat in chats:
   except:
     print("At least I tried")
 for message in chats_json:
-  q = query.format('chats(idChat)',"({})".format(chat[0]),'chats.idChat')
+  q = query.format('messages(idMessage, text, datetime, users_idUser, chats_idChat)',"({},'{}','{}',{},{})".format(message['idMessage'],message['text'],message['datetime'],message['idUsers'],message['idChat'],),'messages.idMessage')
   print(q)
   try:
     cur.execute(q)
