@@ -17,6 +17,6 @@ def connectCollection(database, collection):
 
 db, coll = connectCollection('datamad1019','chats')
 
-with open('my-application/input/clean_chats.json') as f:
-    chats_json = json.load(f)
-coll.insert_many(chats_json)
+query = {'chat_id':'62'}
+test_query = coll.find(query)
+print(list(test_query))
