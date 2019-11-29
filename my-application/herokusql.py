@@ -13,6 +13,7 @@ conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 #Create Cursor
 cur = conn.cursor()
 #Create Tables
+cur.execute("DROP TABLE chats;")
 query = """CREATE TABLE IF NOT EXISTS chats (
   idchats INT PRIMARY KEY,
   source VARCHAR(45) NULL,
