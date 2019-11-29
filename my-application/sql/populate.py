@@ -16,21 +16,21 @@ cur = conn.cursor()
 #Create Tables
 query = """
 CREATE TABLE IF NOT EXISTS users (
-  idUsers INT NOT NULL,
+  idUser INT NOT NULL,
   userName VARCHAR(45) NOT NULL,
-  PRIMARY KEY (idUsers));
+  PRIMARY KEY (idUser));
 CREATE TABLE IF NOT EXISTS chats (
   idChat INT NOT NULL,
   PRIMARY KEY (idChat));
-CREATE TABLE IF NOT EXISTS Message (
+CREATE TABLE IF NOT EXISTS messages (
   idMessage INT NOT NULL,
   text VARCHAR(45) NULL,
   datetime VARCHAR(45) NULL,
   users_idUsers INT NOT NULL,
   chats_idChat INT NOT NULL,
   PRIMARY KEY (idMessage),
-    FOREIGN KEY (users_idUsers)
-    REFERENCES users (idUsers)
+    FOREIGN KEY (users_idUser)
+    REFERENCES users (idUser)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT fk_Message_chats1
@@ -47,13 +47,13 @@ with open('my-application/input/chats.json') as f:
 users = list(set([(chats_json[i]['idUser'],chats_json[i]['userName']) for i in range(len(chats_json))]))
 chats = list(set([(chats_json[i]['idChat']) for i in range(len(chats_json))]))
 for user in users:
-  cur.execute(query.format('users',str(user),'users.idUser'))
+  cur.execute(query.format('users (idUser, userName)',str(user),'users.idUser'))
   #Get Response
   id = cur.fetchone()[0]
   print(f"value inserted: {id}")
 for chat in chats:
   try:
-    cur.execute(query.format('chats',str(chat),'chats.idChat'))
+    cur.execute(query.format('chats (idChat)',str(chat),'chats.idChat'))
     #Get Response
     id = cur.fetchone()[0]
     print(f"value inserted: {id}")
@@ -61,7 +61,7 @@ for chat in chats:
     print("At least I tried")
 for message in chats_json:
   try:
-    cur.execute(query.format('Message',"({},{},{},{},{})".format(message['idMessage'],message['text'],message['datetime'],message['idUsers'],message['idChat'],),'messages.idMessage'))
+    cur.execute(query.format('messages (idMessage, text, datetime, users_idUser, chats_idChat)',"({},{},{},{},{})".format(message['idMessage'],message['text'],message['datetime'],message['idUsers'],message['idChat'],),'messages.idMessage'))
     #Get Response
     id = cur.fetchone()[0]
     print(f"value inserted: {id}")
