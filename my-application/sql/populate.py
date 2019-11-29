@@ -69,7 +69,7 @@ for chat in chats:
   except:
     print("At least I tried")
 for message in chats_json:
-  q = query.format('messages(idMessage, text, datetime, users_idUser, chats_idChat)',"({},'{}','{}',{},{})".format(message['idMessage'],message['text'],message['datetime'],message['idUsers'],message['idChat'],),'messages.idMessage')
+  q = query.format('messages(idMessage, text, datetime, users_idUser, chats_idChat)',"({},'{}','{}',{},{})".format(message['idMessage'],message['text'],message['datetime'],message['idUser'],message['idChat'],),'messages.idMessage')
   print(q)
   try:
     cur.execute(q)
