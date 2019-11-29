@@ -12,4 +12,4 @@ conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 #Create Cursor
 cur = conn.cursor()
 #DROP Tables
-cur.execute("DROP TABLE *;")
+cur.execute("DROP TABLE users;DROP TABLE chats;DROP TABLE message;")

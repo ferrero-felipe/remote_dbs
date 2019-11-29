@@ -6,6 +6,8 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import pandas as pd
 import json
 
+import clear
+
 DATABASE_URL = os.environ['DATABASE_URL']
 #Connect to DB
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
