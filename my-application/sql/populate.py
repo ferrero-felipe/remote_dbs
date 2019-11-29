@@ -4,6 +4,7 @@ import os
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT 
 import pandas as pd
+import json
 
 DATABASE_URL = os.environ['DATABASE_URL']
 #Connect to DB
