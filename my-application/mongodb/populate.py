@@ -7,7 +7,7 @@ import os
 
 #Get Password
 password = getpass.getpass("Insert your AtlasMongoDB admin_1019 password: ")
-connection = os.getenv('MONGO_CONNECTION').format(password)
+connection = "mongodb+srv://admin_1019:{}@datamad1019-enj5c.mongodb.net/test?retryWrites=true&w=majority".format(password)
 
 #Connect to DB
 client = MongoClient(connection)
