@@ -49,15 +49,16 @@ with open('my-application/input/chats.json') as f:
 users = list(set([(chats_json[i]['idUser'],chats_json[i]['userName']) for i in range(len(chats_json))]))
 chats = list(set([(chats_json[i]['idChat']) for i in range(len(chats_json))]))
 for user in users:
-  q=query.format('users (idUser, userName)',"'{}', '{}'".format(user[0],user[1]),'users.idUser')
-  print(q)
-  cur.execute(q)
-  #Get Response
-  id = cur.fetchone()[0]
-  print(f"value inserted: {id}")
+  try:
+    cur.execute(query.format('users (idUser, userName)',"({}, '{}')".format(user[0],user[1]),'users.idUser'))
+    #Get Response
+    id = cur.fetchone()[0]
+    print(f"value inserted: {id}")
+  except:
+    print("At least I tried")
 for chat in chats:
   try:
-    cur.execute(query.format('chats(idChat)',"'{}'".format(chat[0]),'chats.idChat'))
+    cur.execute(query.format('chats(idChat)',"({})".format(chat[0]),'chats.idChat'))
     #Get Response
     id = cur.fetchone()[0]
     print(f"value inserted: {id}")
@@ -65,7 +66,7 @@ for chat in chats:
     print("At least I tried")
 for message in chats_json:
   try:
-    cur.execute(query.format('messages(idMessage, text, datetime, users_idUser, chats_idChat)',"('{}','{}','{}','{}','{}')".format(message['idMessage'],message['text'],message['datetime'],message['idUsers'],message['idChat'],),'messages.idMessage'))
+    cur.execute(query.format('messages(idMessage, text, datetime, users_idUser, chats_idChat)',"({},'{}','{}',{},{})".format(message['idMessage'],message['text'],message['datetime'],message['idUsers'],message['idChat'],),'messages.idMessage'))
     #Get Response
     id = cur.fetchone()[0]
     print(f"value inserted: {id}")
