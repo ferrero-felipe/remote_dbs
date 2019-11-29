@@ -14,30 +14,30 @@ conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 cur = conn.cursor()
 #Create Tables
 query = """
-CREATE TABLE IF NOT EXISTS User (
+CREATE TABLE IF NOT EXISTS users (
   idUsers INT NOT NULL,
   userName VARCHAR(45) NOT NULL,
   PRIMARY KEY (idUsers));
-CREATE TABLE IF NOT EXISTS Chat (
+CREATE TABLE IF NOT EXISTS chats (
   idChat INT NOT NULL,
   PRIMARY KEY (idChat));
 CREATE TABLE IF NOT EXISTS Message (
   idMessage INT NOT NULL,
   text VARCHAR(45) NULL,
   datetime VARCHAR(45) NULL
-  User_idUsers INT NOT NULL,
-  Chat_idChat INT NOT NULL,
+  users_idUsers INT NOT NULL,
+  chats_idChat INT NOT NULL,
   PRIMARY KEY (idMessage),
-  INDEX fk_Message_User_idx (User_idUsers ASC),
-  INDEX fk_Message_Chat1_idx (Chat_idChat ASC),
+  INDEX fk_Message_users_idx (users_idUsers ASC),
+  INDEX fk_Message_chats1_idx (chats_idChat ASC),
   CONSTRAINT fk_Message_User
-    FOREIGN KEY (User_idUsers)
-    REFERENCES User (idUsers)
+    FOREIGN KEY (users_idUsers)
+    REFERENCES users (idUsers)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT fk_Message_Chat1
-    FOREIGN KEY (Chat_idChat)
-    REFERENCES Chat (idChat)
+  CONSTRAINT fk_Message_chats1
+    FOREIGN KEY (chats_idChat)
+    REFERENCES chats (idChat)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)"""
 cur.execute(query)
@@ -50,7 +50,7 @@ users = list(set([(chats_json[i]['idUser'],chats_json[i]['userName']) for i in r
 chats = list(set([(chats_json[i]['idChat']) for i in range(len(chats_json))]))
 for user in users:
   try:
-    cur.execute(query.format('User',str(user),'idUser'))
+    cur.execute(query.format('users',str(user),'idUser'))
     #Get Response
     id = cur.fetchone()[0]
     print(f"value inserted: {id}")
@@ -58,7 +58,7 @@ for user in users:
     print("At least I tried")
 for chat in chats:
   try:
-    cur.execute(query.format('Chat',str(chat),'idChat'))
+    cur.execute(query.format('chats',str(chat),'idChat'))
     #Get Response
     id = cur.fetchone()[0]
     print(f"value inserted: {id}")
