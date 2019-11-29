@@ -3,6 +3,7 @@
 from pymongo import MongoClient
 import getpass
 import pandas as pd 
+import json
 
 #Get Password
 password = getpass.getpass("Insert your AtlasMongoDB admin_1019 password: ")
@@ -18,5 +19,6 @@ def connectCollection(database, collection):
 db, coll = connectCollection('datamad1019','chats')
 
 chats = pd.read_csv('my-application/input/clean_chats.csv')
-chats_json = chats.to_json(orient='records')
+chats.to_json('my-application/input/clean_chats.json',orient='records')
+chats_json = json.load('my-application/input/clean_chats.json')
 coll.insert_many(chats_json)
