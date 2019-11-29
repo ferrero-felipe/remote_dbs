@@ -11,14 +11,16 @@ import clear
 DATABASE_URL = os.environ['DATABASE_URL']
 #Connect to DB
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
 #If permission Error
 conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+
 #Create Cursor
 cur = conn.cursor()
 #Create Tables
 query = """
 CREATE TABLE IF NOT EXISTS users (
-  idUser INT NOT NULL,
+  idUser INT NOT NULL, 
   userName VARCHAR(45) NOT NULL,
   PRIMARY KEY (idUser));
 CREATE TABLE IF NOT EXISTS chats (
@@ -40,14 +42,24 @@ CREATE TABLE IF NOT EXISTS messages (
     REFERENCES chats (idChat)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)"""
+
+
 cur.execute(query)
+print("Database created.")
+
 #Populate Tables
-chats = pd.read_json('my-application/input/chats.json',orient='records')
+
 query = "INSERT INTO {} VALUES {} RETURNING {}"
+
+
 with open('my-application/input/chats.json') as f:
     chats_json = json.load(f)
+
+
 users = list(set([(chats_json[i]['idUser'],chats_json[i]['userName']) for i in range(len(chats_json))]))
+
 chats = list(set([(chats_json[i]['idChat']) for i in range(len(chats_json))]))
+
 for user in users:
   q = query.format('users (idUser, userName)',"({}, '{}')".format(user[0],user[1]),'users.idUser')
   print(q)
@@ -58,6 +70,7 @@ for user in users:
     print(f"value inserted: {id}")
   except:
     print("At least I tried")
+
 for chat in chats:
   q = query.format('chats(idChat)',"({})".format(chat),'chats.idChat')
   print(q)
@@ -68,6 +81,7 @@ for chat in chats:
     print(f"value inserted: {id}")
   except:
     print("At least I tried")
+
 for message in chats_json:
   q = query.format('messages(idMessage, text, datetime, users_idUser, chats_idChat)',"({},'{}','{}',{},{})".format(message['idMessage'],message['text'],message['datetime'],message['idUser'],message['idChat'],),'messages.idMessage')
   print(q)
@@ -78,6 +92,7 @@ for message in chats_json:
     print(f"value inserted: {id}")
   except:
     print("At least I tried")
+    
 print('Done!')
 
 
