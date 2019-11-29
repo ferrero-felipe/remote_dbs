@@ -8,7 +8,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Get messages for specific idChat')
 parser.add_argument('--id', type=int, help='idChat')
-n = parser.parse_args(['id'])
+n = parser.parse_args().id
 print(n)
 
 DATABASE_URL = os.environ['DATABASE_URL']
