@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS chats (
   PRIMARY KEY (idChat));
 CREATE TABLE IF NOT EXISTS messages (
   idMessage INT NOT NULL,
-  text VARCHAR(45) NULL,
+  text VARCHAR(60) NULL,
   datetime VARCHAR(45) NULL,
   users_idUser INT NOT NULL,
   chats_idChat INT NOT NULL,
@@ -71,9 +71,8 @@ for chat in chats:
 for message in chats_json:
   q = query.format('messages(idMessage, text, datetime, users_idUser, chats_idChat)',"({},'{}','{}',{},{})".format(message['idMessage'],message['text'],message['datetime'],message['idUser'],message['idChat'],),'messages.idMessage')
   print(q)
-  cur.execute(q)
   try:
-    
+    cur.execute(q)
     #Get Response
     id = cur.fetchone()[0]
     print(f"value inserted: {id}")
