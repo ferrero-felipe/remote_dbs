@@ -6,10 +6,11 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import pandas as pd
 
 DATABASE_URL = os.environ['DATABASE_URL']
-#Connect
+#Connect to DB
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+#If permission Error
 conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-#Cursor
+#Create Cursor
 cur = conn.cursor()
 #Create Tables
 query = """CREATE TABLE IF NOT EXISTS chats (
@@ -20,13 +21,16 @@ query = """CREATE TABLE IF NOT EXISTS chats (
   message_id VARCHAR(45) NULL,
   chat_id VARCHAR(45) NULL);"""
 cur.execute(query)
-#Populate table
+#Populate Tables
 chats = pd.read_csv('my-application/input/clean_chats.csv')
-query = "INSERT INTO chats VALUES "
+query = "INSERT INTO chats VALUES {} RETURNING message_id"
 for _,row in chats.iterrows():
   try:
     values = str(tuple(row.values))
-    cur.execute(query+values)
+    cur.execute(query.format(values))
+    #Get Response
+    message_id = cur.fetchone()[0]
+    print(f"message inserted: {message_id}")
   except:
     print("At least I tried")
 print('Done!')
