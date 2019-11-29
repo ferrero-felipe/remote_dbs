@@ -28,9 +28,6 @@ CREATE TABLE IF NOT EXISTS Message (
   users_idUsers INT NOT NULL,
   chats_idChat INT NOT NULL,
   PRIMARY KEY (idMessage),
-  INDEX fk_Message_users_idx (users_idUsers ASC),
-  INDEX fk_Message_chats1_idx (chats_idChat ASC),
-  CONSTRAINT fk_Message_User
     FOREIGN KEY (users_idUsers)
     REFERENCES users (idUsers)
     ON DELETE NO ACTION
