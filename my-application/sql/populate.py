@@ -71,8 +71,9 @@ for chat in chats:
 for message in chats_json:
   q = query.format('messages(idMessage, text, datetime, users_idUser, chats_idChat)',"({},'{}','{}',{},{})".format(message['idMessage'],message['text'],message['datetime'],message['idUser'],message['idChat'],),'messages.idMessage')
   print(q)
+  cur.execute(q)
   try:
-    cur.execute(q)
+    
     #Get Response
     id = cur.fetchone()[0]
     print(f"value inserted: {id}")
