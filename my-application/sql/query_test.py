@@ -8,8 +8,8 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument('--id', help='idChat')
+n = parser.parse_args()
 print(n)
-n = parser.parse_args()[0]
 
 DATABASE_URL = os.environ['DATABASE_URL']
 #Connect to DB
